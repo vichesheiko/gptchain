@@ -38,7 +38,9 @@ Run training session:
 
 ```
 python gptchain.py train -m unsloth/llama-3-70b-bnb-4bit \
-	--dataset-name tagengo_gpt4 \
+	--dataset-name tagengo_gpt4 \ #default alpaca_data
+	--dataset-url https://huggingface.co/datasets/vchesheiko/job_desc_json_data/resolve/main/alpaca_jobs_dartaset.json \ #path to json file on huggingface
+	--dataset-path vchesheiko/job_desc_json_data \ #public dataset name on huggingface
 	--save-path checkpoints/llama-3-70b-tagengo \
 	--huggingface-repo llama-3-70b-tagengo \
 	--max-steps 2400
