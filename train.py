@@ -1,7 +1,13 @@
-import torch
+import os
 
-from trl import SFTTrainer
+import torch
 from transformers import TrainingArguments
+from trl import SFTTrainer
+
+WANDB_API_KEY = os.getenv("WANDB_API_KEY")
+
+if WANDB_API_KEY is None:
+    WANDB_API_KEY = "none"
 
 
 def train_model(model, tokenizer, dataset, max_seq_length, train_args):
@@ -30,7 +36,8 @@ def train_model(model, tokenizer, dataset, max_seq_length, train_args):
             lr_scheduler_type="linear",
             seed=3407,
             output_dir="outputs",
-            **train_args
+            report_to=WANDB_API_KEY,
+            **train_args,
         ),
     )
 
@@ -41,7 +48,9 @@ def train_model(model, tokenizer, dataset, max_seq_length, train_args):
     used_percentage = round(used_memory / max_memory * 100, 3)
     lora_percentage = round(used_memory_for_lora / max_memory * 100, 3)
     print(f"{trainer_stats.metrics['train_runtime']} seconds used for training.")
-    print(f"{round(trainer_stats.metrics['train_runtime'] / 60, 2)} minutes used for training.")
+    print(
+        f"{round(trainer_stats.metrics['train_runtime'] / 60, 2)} minutes used for training."
+    )
     print(f"Peak reserved memory = {used_memory} GB.")
     print(f"Peak reserved memory for training = {used_memory_for_lora} GB.")
     print(f"Peak reserved memory % of max memory = {used_percentage} %.")
