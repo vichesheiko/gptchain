@@ -237,7 +237,7 @@ def quant(model_id, method, save_path, huggingface_repo):
     model, tokenizer = load_model_4bit(model_id)
     model.save_pretrained_gguf(save_path, tokenizer, quantization_method=method)
     if huggingface_repo:
-        model.push_to_hub_gguf(save_path, tokenizer, quantization_method=method)
+        model.push_to_hub_gguf(huggingface_repo, tokenizer, quantization_method=method)
 
 
 if __name__ == "__main__":
