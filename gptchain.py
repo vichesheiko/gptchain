@@ -1,8 +1,6 @@
 import json
-import os
 
 import click
-from dotenv import load_dotenv
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.chains import (
@@ -24,10 +22,6 @@ from train import train_model
 from utils.data import Dataset
 from utils.prompts import alpaca_prompt, system_prompts
 from utils.weights import apply_lora, load_model_4bit, max_seq_length
-
-load_dotenv()
-
-HF_TOKEN = os.getenv("HF_TOKEN")
 
 
 @click.group()

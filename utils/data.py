@@ -1,9 +1,12 @@
 import os
 
 from datasets import load_dataset
+from dotenv import load_dotenv
 from unsloth.chat_templates import get_chat_template
 
 from .prompts import alpaca_prompt, system_prompts
+
+load_dotenv()
 
 HF_TOKEN = os.getenv("HF_TOKEN")
 

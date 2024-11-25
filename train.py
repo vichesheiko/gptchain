@@ -1,8 +1,11 @@
 import os
 
 import torch
+from dotenv import load_dotenv
 from transformers import TrainingArguments
 from trl import SFTTrainer
+
+load_dotenv()
 
 WANDB_API_KEY = os.getenv("WANDB_API_KEY")
 
