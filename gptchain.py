@@ -1,6 +1,8 @@
 import json
+import os
 
 import click
+from dotenv import load_dotenv
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.chains import (
@@ -22,6 +24,10 @@ from train import train_model
 from utils.data import Dataset
 from utils.prompts import alpaca_prompt, system_prompts
 from utils.weights import apply_lora, load_model_4bit, max_seq_length
+
+load_dotenv()
+
+HF_TOKEN = os.getenv("HF_TOKEN")
 
 
 @click.group()
@@ -237,7 +243,9 @@ def quant(model_id, method, save_path, huggingface_repo):
     model, tokenizer = load_model_4bit(model_id)
     model.save_pretrained_gguf(save_path, tokenizer, quantization_method=method)
     if huggingface_repo:
-        model.push_to_hub_gguf(huggingface_repo, tokenizer, quantization_method=method)
+        model.push_to_hub_gguf(
+            huggingface_repo, tokenizer, quantization_method=method, token=HF_TOKEN
+        )
 
 
 if __name__ == "__main__":
