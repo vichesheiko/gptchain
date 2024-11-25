@@ -1,16 +1,6 @@
-import os
-
 import torch
-from dotenv import load_dotenv
 from transformers import TrainingArguments
 from trl import SFTTrainer
-
-load_dotenv()
-
-WANDB_API_KEY = os.getenv("WANDB_API_KEY")
-
-if WANDB_API_KEY is None:
-    WANDB_API_KEY = "none"
 
 
 def train_model(model, tokenizer, dataset, max_seq_length, train_args):
@@ -39,7 +29,7 @@ def train_model(model, tokenizer, dataset, max_seq_length, train_args):
             lr_scheduler_type="linear",
             seed=3407,
             output_dir="outputs",
-            report_to=WANDB_API_KEY,
+            report_to="wandb",
             **train_args,
         ),
     )

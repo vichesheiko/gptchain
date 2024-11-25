@@ -42,8 +42,6 @@ class Dataset:
             }
 
         dataset = None
-        print(HF_TOKEN)
-        print(self._data_url)
         if self._data_url is not None and HF_TOKEN is not None:
             dataset = load_dataset(
                 "json",
