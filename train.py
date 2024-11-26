@@ -77,7 +77,7 @@ def formatting_prompts_func(examples):
 
 
 pass
-url = "https://huggingface.co/datasets/vchesheiko/job_desc_json_data/resolve/main/alpaca_jobs_dartaset.json"
+url = "https://huggingface.co/datasets/vchesheiko/job_desc_json_data/resolve/main/alpaca_jobs_dataset.json"
 dataset = load_dataset("json", data_files={"train": url}, split="train", token=HF_TOKEN)
 dataset = dataset.map(
     formatting_prompts_func,
